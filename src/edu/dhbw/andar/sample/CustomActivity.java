@@ -22,8 +22,38 @@ public class CustomActivity extends AndARActivity {
 		CustomRenderer renderer = new CustomRenderer();//optional, may be set to null
 		super.setNonARRenderer(renderer);//or might be omited
 		try {
-			// actually it's show a cube with different colors when see different markers
 			artoolkit = super.getArtoolkit();
+			final String[] allObjFilesInAssets = getAssets().list("objModels");
+			for(int i=0; i<allObjFilesInAssets.length; i++) {
+				if(allObjFilesInAssets[i].endsWith(".obj")){
+					String baseName = allObjFilesInAssets[i].substring(0,allObjFilesInAssets[i].lastIndexOf("."));
+					//System.out.println("-------"+baseName);
+					String modelFileName = allObjFilesInAssets[i];
+					BaseFileUtil fileUtil = new AssetsFileUtil(getAssets());
+					fileUtil.setBaseFolder("objModels/");
+					ObjParser parser = new ObjParser(fileUtil);
+					if(fileUtil != null) {
+						BufferedReader fileReader = fileUtil.getReaderFromName(modelFileName);
+						if(fileReader != null) {
+							model = parser.parse("Model", fileReader);
+							/* add a check here.... */
+							if(Arrays.asList(getAssets().list("")).contains(baseName+".patt")){
+								model3d = new Model3D(model,baseName+".patt");
+								artoolkit.registerARObject(model3d);
+								System.out.println("-------"+baseName);
+							}
+							else{
+								// default
+								model3d = new Model3D(model);
+								artoolkit.registerARObject(model3d);								
+							}
+							System.out.println("cretaed model3d for: "+ allObjFilesInAssets[i]);
+						}
+					}
+				}
+			}
+			/*
+			// actually it's show a cube with different colors when see different markers
 			someObject = new CustomObject
 				("test", "patt_01.patt", 80.0, new double[]{0,0}, new float[]{0f,0f,0f});
 			artoolkit.registerARObject(someObject);
@@ -47,7 +77,8 @@ public class CustomActivity extends AndARActivity {
 			artoolkit.registerARObject(someObject);		
 			someObject = new CustomObject
 				("test", "patt_08.patt", 80.0, new double[]{0,0}, new float[]{1f,1f,1f});
-			artoolkit.registerARObject(someObject);		
+			artoolkit.registerARObject(someObject);
+			*/		
 		} catch (AndARException ex){
 			//handle the exception, that means: show the user what happened
 			System.out.println("");
