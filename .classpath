@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="lib/AndAR.jar">
+	<classpathentry kind="lib" path="lib/AndAR.jar" sourcepath="/home/pixel/git/AndAR">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/AndARSampleProject/lib/AndAR_doc.zip!/doc"/>
 		</attributes>
