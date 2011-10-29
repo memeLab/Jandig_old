@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/164/trunk/AndARModelViewer/src/edu/dhbw/andobjviewer/graphics
+END
+Renderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/164/trunk/AndARModelViewer/src/edu/dhbw/andobjviewer/graphics/Renderer.java
+END
+Model3D.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/164/trunk/AndARModelViewer/src/edu/dhbw/andobjviewer/graphics/Model3D.java
+END
+LightingRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/164/trunk/AndARModelViewer/src/edu/dhbw/andobjviewer/graphics/LightingRenderer.java
+END

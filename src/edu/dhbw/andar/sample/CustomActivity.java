@@ -62,7 +62,7 @@ public class CustomActivity extends AndARActivity {
 	 */
 	@Override
 	public void uncaughtException(Thread thread, Throwable ex) {
-		Log.e("AndAR EXCEPTION", ex.getMessage());
+		Log.e("AndAR EXCEPTION", ex.getMessage	());
 		finish();
 	}
 	
