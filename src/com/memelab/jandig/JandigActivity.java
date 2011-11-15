@@ -159,7 +159,6 @@ public class JandigActivity extends AndARActivity {
 							if(Arrays.asList(getAssets().list("")).contains(baseName+".patt")){
 								model3d = new Model3D(model,baseName+".patt", 30.0);
 								artoolkit.registerARObject(model3d);
-								System.out.println("---found "+baseName+".patt");
 							}
 							else{
 								// default
