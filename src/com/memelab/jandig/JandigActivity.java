@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,9 +24,12 @@ import java.io.InputStream;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Arrays;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -231,11 +235,13 @@ public class JandigActivity extends AndARActivity {
 			return true;
 		}
 	}
-	
+
 	class TakeAsyncScreenshot extends AsyncTask<Void, Void, Void> {
 		private String errorMsg = null;
-		private String fname = null;
-		private String dname = new String("/sdcard/DCIM/Camera/");
+
+		private File imgDir  = new File("/sdcard/Jandig/");
+		private File imgFile = null;
+
 		private Calendar calendar = Calendar.getInstance();
 		private SimpleDateFormat sdfD = new SimpleDateFormat("yyyyMMdd");
 		private SimpleDateFormat sdfT = new SimpleDateFormat("HHmmss");
@@ -243,21 +249,35 @@ public class JandigActivity extends AndARActivity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			Bitmap bm = takeScreenshot();
-			FileOutputStream fos;
+
 			try {
 				String date = new String(sdfD.format(calendar.getTime()));
 				String time = new String(sdfT.format(calendar.getTime()));
 
-				fname = new String("Jandig_"+date+"_"+time+".jpg");
-				File f = new File(dname,fname);
+				String fname = new String("Jandig_"+date+"_"+time+".jpg");
+				imgDir.mkdirs();
+				imgFile = new File(imgDir,fname);
 
-				fos = new FileOutputStream(f);
-				bm.compress(CompressFormat.JPEG, 100, fos);
-				fos.flush();
-				fos.close();
+				// write into media folder
+				ContentValues v = new ContentValues();
+				long dateTaken = calendar.getTimeInMillis()/1000;
+				v.put(MediaStore.Images.Media.TITLE, fname);
+				v.put(MediaStore.Images.Media.PICASA_ID, fname);
+				v.put(MediaStore.Images.Media.DISPLAY_NAME, "Jandig");
+				v.put(MediaStore.Images.Media.DESCRIPTION, "Jandig");
+				v.put(MediaStore.Images.Media.DATE_ADDED, dateTaken);
+				v.put(MediaStore.Images.Media.DATE_TAKEN, dateTaken);
+				v.put(MediaStore.Images.Media.DATE_MODIFIED, dateTaken);
+				v.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+				v.put(MediaStore.Images.Media.ORIENTATION, 0);
+				v.put(MediaStore.Images.Media.DATA, imgFile.getAbsolutePath());
 
-				// refresh media folder
-				MediaStore.Images.Media.insertImage(getContentResolver(),f.getAbsolutePath(),f.getName(),f.getName());
+				Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, v);
+				OutputStream outStream = getContentResolver().openOutputStream(uri);
+
+				bm.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+				outStream.flush();
+				outStream.close();
 			} 
 			catch (FileNotFoundException e) {
 				errorMsg = e.getMessage();
@@ -271,11 +291,11 @@ public class JandigActivity extends AndARActivity {
 		}
 
 		protected void onPostExecute(Void result) {
-			if((errorMsg == null)&&(fname != null)){
-				Toast.makeText(JandigActivity.this, "Imagen salva em: "+dname+fname, Toast.LENGTH_SHORT ).show();
+			if((errorMsg == null)&&(imgFile != null)){
+				Toast.makeText(JandigActivity.this, "Imagem salva em: "+imgFile.getAbsolutePath(), Toast.LENGTH_SHORT ).show();
 			}
 			else {
-				Toast.makeText(JandigActivity.this, "Erro salvando imagem "+errorMsg, Toast.LENGTH_SHORT ).show();
+				Toast.makeText(JandigActivity.this, "Erro salvando imagem: "+errorMsg, Toast.LENGTH_SHORT ).show();
 			}
 		}
 	} // class TakeAsyncScreenshot
