@@ -27,7 +27,8 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 //import edu.dhbw.andobjviewer.AugmentedModelViewerActivity;
-import edu.dhbw.andar.sample.CustomActivity;
+//import edu.dhbw.andar.sample.CustomActivity;
+import com.memelab.jandig.JandigActivity;
 import edu.dhbw.andobjviewer.models.Vector3D;
 import edu.dhbw.andobjviewer.util.MemUtil;
 
@@ -62,7 +63,7 @@ public class Renderer implements GLSurfaceView.Renderer {
 	
 	@Override
 	public void onDrawFrame(GL10 gl) {
-		if(CustomActivity.DEBUG) {
+		if(JandigActivity.DEBUG) {
 			frame++;
 			time=System.currentTimeMillis();
 			if (time - timebase > 1000) {

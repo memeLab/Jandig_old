@@ -49,9 +49,51 @@ public class Model3D extends ARObject implements Serializable{
 	private Group[] nonTexturedGroups;
 	private HashMap<Material, Integer> textureIDs = new HashMap<Material, Integer>();
 
+	/* tgh: added a string for the pattern filename and doubles for markerWidth and markerCenter */
+	public Model3D(Model model, String pattName, double markerWidth, double[] markerCenter) {
+		super("model"+pattName, pattName, markerWidth, markerCenter);
+		this.model = model;
+		model.finalize();
+		//separate texture from non textured groups for performance reasons
+		Vector<Group> groups = model.getGroups();
+		Vector<Group> texturedGroups = new Vector<Group>();
+		Vector<Group> nonTexturedGroups = new Vector<Group>();
+		for (Iterator<Group> iterator = groups.iterator(); iterator.hasNext();) {
+			Group currGroup = iterator.next();
+			if(currGroup.isTextured()) {
+				texturedGroups.add(currGroup);
+			} else {
+				nonTexturedGroups.add(currGroup);
+			}			
+		}
+		this.texturedGroups = texturedGroups.toArray(new Group[texturedGroups.size()]);
+		this.nonTexturedGroups = nonTexturedGroups.toArray(new Group[nonTexturedGroups.size()]);	
+	}
+
+	/* tgh: added a string for the pattern filename and double for markerWidth */
+	public Model3D(Model model, String pattName, double markerWidth) {
+		super("model"+pattName, pattName, markerWidth, new double[]{0,0});
+		this.model = model;
+		model.finalize();
+		//separate texture from non textured groups for performance reasons
+		Vector<Group> groups = model.getGroups();
+		Vector<Group> texturedGroups = new Vector<Group>();
+		Vector<Group> nonTexturedGroups = new Vector<Group>();
+		for (Iterator<Group> iterator = groups.iterator(); iterator.hasNext();) {
+			Group currGroup = iterator.next();
+			if(currGroup.isTextured()) {
+				texturedGroups.add(currGroup);
+			} else {
+				nonTexturedGroups.add(currGroup);
+			}			
+		}
+		this.texturedGroups = texturedGroups.toArray(new Group[texturedGroups.size()]);
+		this.nonTexturedGroups = nonTexturedGroups.toArray(new Group[nonTexturedGroups.size()]);	
+	}
+	
 	/* tgh: added a string for the pattern filename */
 	public Model3D(Model model, String pattName) {
-		super("model"+pattName, pattName, 80.0, new double[]{0,0});
+		super("model"+pattName, pattName, 50.0, new double[]{0,0});
 		this.model = model;
 		model.finalize();
 		//separate texture from non textured groups for performance reasons

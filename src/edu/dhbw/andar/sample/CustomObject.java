@@ -5,7 +5,7 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
 import edu.dhbw.andar.ARObject;
-import edu.dhbw.andar.pub.SimpleBox;
+import edu.dhbw.andar.sample.SimpleBox;
 import edu.dhbw.andar.util.GraphicsUtil;
 
 /**
@@ -64,7 +64,7 @@ public class CustomObject extends ARObject {
 		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, mat_ambient);
 
 		//draw cube
-		gl.glColor4f(0, 1.0f, 0, 1.0f);
+		//gl.glColor4f(0, 1.0f, 0, 1.0f);
 		gl.glTranslatef( 0.0f, 0.0f, 12.5f );
 
 		//draw the box
