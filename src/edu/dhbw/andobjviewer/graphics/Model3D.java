@@ -48,11 +48,16 @@ public class Model3D extends ARObject implements Serializable{
 	private Group[] texturedGroups;
 	private Group[] nonTexturedGroups;
 	private HashMap<Material, Integer> textureIDs = new HashMap<Material, Integer>();
+	
+	// tgh
+	private String modelName;
 
 	/* tgh: added a string for the pattern filename and doubles for markerWidth and markerCenter */
 	public Model3D(Model model, String pattName, double markerWidth, double[] markerCenter) {
 		super("model"+pattName, pattName, markerWidth, markerCenter);
 		this.model = model;
+		this.modelName = "model"+pattName;
+		System.out.println("----from c-tuctor: modelname= "+this.modelName);
 		model.finalize();
 		//separate texture from non textured groups for performance reasons
 		Vector<Group> groups = model.getGroups();
@@ -72,8 +77,11 @@ public class Model3D extends ARObject implements Serializable{
 
 	/* tgh: added a string for the pattern filename and double for markerWidth */
 	public Model3D(Model model, String pattName, double markerWidth) {
+		this(model, pattName, markerWidth, new double[]{0,0});
+		/*
 		super("model"+pattName, pattName, markerWidth, new double[]{0,0});
 		this.model = model;
+		this.modelName = "model"+pattName;
 		model.finalize();
 		//separate texture from non textured groups for performance reasons
 		Vector<Group> groups = model.getGroups();
@@ -89,12 +97,16 @@ public class Model3D extends ARObject implements Serializable{
 		}
 		this.texturedGroups = texturedGroups.toArray(new Group[texturedGroups.size()]);
 		this.nonTexturedGroups = nonTexturedGroups.toArray(new Group[nonTexturedGroups.size()]);	
+		*/
 	}
 	
 	/* tgh: added a string for the pattern filename */
 	public Model3D(Model model, String pattName) {
-		super("model"+pattName, pattName, 50.0, new double[]{0,0});
+		this(model, pattName, 80.0, new double[]{0,0});
+		/*
+		super("model"+pattName, pattName, 80.0, new double[]{0,0});
 		this.model = model;
+		this.modelName = "model"+pattName;
 		model.finalize();
 		//separate texture from non textured groups for performance reasons
 		Vector<Group> groups = model.getGroups();
@@ -109,13 +121,17 @@ public class Model3D extends ARObject implements Serializable{
 			}			
 		}
 		this.texturedGroups = texturedGroups.toArray(new Group[texturedGroups.size()]);
-		this.nonTexturedGroups = nonTexturedGroups.toArray(new Group[nonTexturedGroups.size()]);	
+		this.nonTexturedGroups = nonTexturedGroups.toArray(new Group[nonTexturedGroups.size()]);
+		*/	
 	}
 
 	
 	public Model3D(Model model) {
+		this(model, "barcode.patt", 80.0, new double[]{0,0});
+		/*
 		super("model", "barcode.patt", 80.0, new double[]{0,0});
 		this.model = model;
+		this.modelName = "modelbarcode";
 		model.finalize();
 		//separate texture from non textured groups for performance reasons
 		Vector<Group> groups = model.getGroups();
@@ -130,7 +146,8 @@ public class Model3D extends ARObject implements Serializable{
 			}			
 		}
 		this.texturedGroups = texturedGroups.toArray(new Group[texturedGroups.size()]);
-		this.nonTexturedGroups = nonTexturedGroups.toArray(new Group[nonTexturedGroups.size()]);	
+		this.nonTexturedGroups = nonTexturedGroups.toArray(new Group[nonTexturedGroups.size()]);
+		*/
 	}
 	
 	@Override
@@ -160,6 +177,9 @@ public class Model3D extends ARObject implements Serializable{
 	@Override
 	public void draw(GL10 gl) {
 		super.draw(gl);
+		
+		// tgh:
+		System.out.println("----From Model3D.draw(): "+modelName);
 		
 		//gl = (GL10) GLDebugHelper.wrap(gl, GLDebugHelper.CONFIG_CHECK_GL_ERROR, log);
 		//do positioning:
@@ -192,7 +212,7 @@ public class Model3D extends ARObject implements Serializable{
 		//now we can continue with textured ones
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-		
+
 		cnt = texturedGroups.length;
 		for (int i = 0; i < cnt; i++) {
 			Group group = texturedGroups[i];
