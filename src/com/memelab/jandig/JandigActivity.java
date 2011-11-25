@@ -161,7 +161,7 @@ public class JandigActivity extends AndARActivity {
 							model = parser.parse(modelFileName, fileReader);
 							/* add a check here.... */
 							if(Arrays.asList(getAssets().list("")).contains(baseName+".patt")){
-								model3d = new Model3D(model,baseName+".patt", 30.0);
+								model3d = new Model3D(model,baseName+".patt", 80.0);
 								artoolkit.registerARObject(model3d);
 							}
 							else{
@@ -187,12 +187,12 @@ public class JandigActivity extends AndARActivity {
 				InputStream ins = getAssets().open("Images/"+ImageFileName);
 
 				if(Arrays.asList(getAssets().list("")).contains(baseName+".patt")){
-					imageobject = new ImageObject(baseName, baseName+".patt", ins, 50.0);
+					imageobject = new ImageObject(baseName, baseName+".patt", ins, 48.0);
 					artoolkit.registerARObject(imageobject);
 				}
 				else{
 					// default pattern
-					imageobject = new ImageObject(baseName, ins, 50.0);
+					imageobject = new ImageObject(baseName, ins, 48.0);
 					artoolkit.registerARObject(imageobject);
 				}
 				System.out.println("----cretaed ImageObject for: "+ allImgFilesInAssets[i]);
@@ -228,7 +228,7 @@ public class JandigActivity extends AndARActivity {
 		public boolean onTouch(View v, MotionEvent event) {
 			if(event.getAction() == MotionEvent.ACTION_UP) {
 				// some pressure thresholding...
-				if(event.getPressure() > 0.15){
+				if(event.getPressure() > 0.10){
 					new TakeAsyncScreenshot().execute();
 				}
 			}
