@@ -53,8 +53,8 @@ public class Model3D extends ARObject implements Serializable{
 	private String modelName;
 
 	/* tgh: added a string for the pattern filename and doubles for markerWidth and markerCenter */
-	public Model3D(Model model, String pattName, double markerWidth, double[] markerCenter) {
-		super("model"+pattName, pattName, markerWidth, markerCenter);
+	public Model3D(String name, Model model, String pattName, double markerWidth, double[] markerCenter) {
+		super(name, pattName, markerWidth, markerCenter);
 		this.model = model;
 		this.modelName = "model"+pattName;
 		System.out.println("----from c-tuctor: modelname= "+this.modelName);
@@ -76,8 +76,8 @@ public class Model3D extends ARObject implements Serializable{
 	}
 
 	/* tgh: added a string for the pattern filename and double for markerWidth */
-	public Model3D(Model model, String pattName, double markerWidth) {
-		this(model, pattName, markerWidth, new double[]{0,0});
+	public Model3D(String name, Model model, String pattName, double markerWidth) {
+		this(name, model, pattName, markerWidth, new double[]{0,0});
 		/*
 		super("model"+pattName, pattName, markerWidth, new double[]{0,0});
 		this.model = model;
@@ -101,8 +101,8 @@ public class Model3D extends ARObject implements Serializable{
 	}
 	
 	/* tgh: added a string for the pattern filename */
-	public Model3D(Model model, String pattName) {
-		this(model, pattName, 80.0, new double[]{0,0});
+	public Model3D(String name, Model model, String pattName) {
+		this(name, model, pattName, 80.0, new double[]{0,0});
 		/*
 		super("model"+pattName, pattName, 80.0, new double[]{0,0});
 		this.model = model;
@@ -127,7 +127,7 @@ public class Model3D extends ARObject implements Serializable{
 
 	
 	public Model3D(Model model) {
-		this(model, "barcode.patt", 80.0, new double[]{0,0});
+		this("barcode", model, "barcode.patt", 80.0, new double[]{0,0});
 		/*
 		super("model", "barcode.patt", 80.0, new double[]{0,0});
 		this.model = model;

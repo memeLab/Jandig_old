@@ -8,6 +8,8 @@ import edu.dhbw.andar.exceptions.AndARException;
 import edu.dhbw.andar.interfaces.OpenGLRenderer;
 import edu.dhbw.andar.sample.CustomObject;
 import edu.dhbw.andar.sample.CustomRenderer;
+import edu.dhbw.andar.util.IO;
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -77,12 +79,13 @@ public class JandigActivity extends AndARActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSurfaceView().setOnTouchListener(new TouchEventHandler());
-
+		
 		if(TESTANDO){
 			createFromCustomObjects(savedInstanceState);
 		}
 		else{
-			createFromAssets(savedInstanceState);
+			//createFromAssets(savedInstanceState);
+			createFromDirs(savedInstanceState);
 		}
 	}
 
@@ -129,6 +132,109 @@ public class JandigActivity extends AndARActivity {
 	}
 
 
+	private void createFromDirs(Bundle savedInstanceState){
+		OpenGLRenderer renderer = new CustomRenderer();//optional, may be set to null
+		super.setNonARRenderer(renderer);//or might be omited
+
+		/* tgh: Model3D... wooohhooooooo!! */
+		Model model;
+		Model3D model3d;
+
+		artoolkit = super.getArtoolkit();
+
+		// tgh: grab every directory in assets
+		//      inside each dir, look for a .obj, or a .png/.gif/.bmp/.jpg
+		//      if any of these exist, find a .patt of any name...
+		try{
+			// for every thing in asset
+			final String[] allFilesInAssets = getAssets().list("");
+			for(int i=0; i<allFilesInAssets.length; i++) {
+				System.out.println("xxxxx every file in ass: "+allFilesInAssets[i]);
+
+				String patFileName = null;
+				String objFileName = null;
+				String imgFileName = null;
+				
+				// for all files inside directories in assets
+				final String[] allFilesInDir = getAssets().list(allFilesInAssets[i]);
+				for(int j=0; j<allFilesInDir.length; j++) {
+					System.out.println("yyyyy every file in directory: "+allFilesInAssets[i]+File.separator+allFilesInDir[j]);
+
+					// detect if there is a .obj
+					if(allFilesInDir[j].endsWith(".obj")){
+						objFileName = new String(allFilesInDir[j]);
+					}
+					
+					// detect an image
+					else if(allFilesInDir[j].endsWith(".bmp") || allFilesInDir[j].endsWith(".gif") || allFilesInDir[j].endsWith(".jpg") || allFilesInDir[j].endsWith(".png")){
+						imgFileName = new String(allFilesInDir[j]);
+					}
+					
+					// detect pattern file
+					else if(allFilesInDir[j].endsWith(".patt")){
+						patFileName = new String(allFilesInDir[j]);
+					}
+				}
+				
+				// if there is an image and a pat file
+				if((imgFileName!=null) && (patFileName!=null)) {
+					InputStream ins = getAssets().open(allFilesInAssets[i]+File.separator+imgFileName);					
+					ImageObject imageobject = new ImageObject(allFilesInAssets[i], new String(allFilesInAssets[i]+File.separator+patFileName), ins, 48.0);
+
+					// hack to overcome the copying procedure in ARToolkit.registerARObject()
+					InputStream in = getAssets().open(allFilesInAssets[i]+File.separator+patFileName);					
+					File bf = new File(getFilesDir().getAbsolutePath()+File.separator+allFilesInAssets[i]);
+					if(!bf.exists()){
+						bf.mkdir();
+					}
+					OutputStream out = new FileOutputStream(new File(bf,patFileName));
+					this.bCopy(in, out);
+					
+					artoolkit.registerARObject(imageobject);
+
+					System.out.println("Created ImageObject for: "+ allFilesInAssets[i]+" with "+imgFileName+" and "+patFileName);
+				}
+				
+				// if there is an obj file and a pat file
+				else if((objFileName!=null) && (patFileName!=null)) {
+					BaseFileUtil fileUtil = new AssetsFileUtil(getAssets());
+					fileUtil.setBaseFolder(allFilesInAssets[i]+File.separator);
+					ObjParser parser = new ObjParser(fileUtil);
+					BufferedReader fileReader = fileUtil.getReaderFromName(objFileName);
+					model = parser.parse(objFileName, fileReader);
+					model3d = new Model3D(allFilesInAssets[i], model, new String(allFilesInAssets[i]+File.separator+patFileName), 80.0);
+
+
+					// hack to overcome the copying procedure in ARToolkit.registerARObject()
+					InputStream in = getAssets().open(allFilesInAssets[i]+File.separator+patFileName);					
+					File bf = new File(getFilesDir().getAbsolutePath()+File.separator+allFilesInAssets[i]);
+					if(!bf.exists()){
+						bf.mkdir();
+					}
+					OutputStream out = new FileOutputStream(new File(bf,patFileName));
+					this.bCopy(in, out);
+					
+					artoolkit.registerARObject(model3d);
+
+					System.out.println("Created Model3D for: "+ allFilesInAssets[i]+" with "+objFileName+" and "+patFileName);
+				}
+
+				
+			}
+		}
+		catch(Exception e){
+
+		}
+
+	}
+	
+	private void bCopy(InputStream in, OutputStream out ) throws IOException { 
+	    byte[] buffer = new byte[ 0xFFFF ]; 
+	    for ( int len; (len = in.read(buffer)) != -1; ) 
+	      out.write( buffer, 0, len ); 
+	  }
+
+	
 	// function to register objects in the assets directory onto the ARToolkit
 	private void createFromAssets(Bundle savedInstanceState) {
 		OpenGLRenderer renderer = new CustomRenderer();//optional, may be set to null
@@ -141,6 +247,7 @@ public class JandigActivity extends AndARActivity {
 
 		artoolkit = super.getArtoolkit();
 
+		
 		/* tgh: get every file in assets/objModels that ends in .obj 
 		 *      and every file in assets/Images, and associate them with the correct .patt */
 		try{
@@ -161,7 +268,7 @@ public class JandigActivity extends AndARActivity {
 							model = parser.parse(modelFileName, fileReader);
 							/* add a check here.... */
 							if(Arrays.asList(getAssets().list("")).contains(baseName+".patt")){
-								model3d = new Model3D(model,baseName+".patt", 80.0);
+								model3d = new Model3D(baseName, model,baseName+".patt", 80.0);
 								artoolkit.registerARObject(model3d);
 							}
 							else{
