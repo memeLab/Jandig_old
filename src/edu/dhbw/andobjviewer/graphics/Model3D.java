@@ -118,9 +118,6 @@ public class Model3D extends ARObject implements Serializable{
 	public void draw(GL10 gl) {
 		super.draw(gl);
 
-		// tgh:
-		System.out.println("----From Model3D.draw(): "+modelName);
-
 		//gl = (GL10) GLDebugHelper.wrap(gl, GLDebugHelper.CONFIG_CHECK_GL_ERROR, log);
 		//do positioning:
 		gl.glScalef(model.scale, model.scale, model.scale);
