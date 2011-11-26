@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU General Public License
     along with AndObjViewer.  If not, see <http://www.gnu.org/licenses/>.
- 
+
  */
 package edu.dhbw.andobjviewer.graphics;
 
@@ -43,12 +43,12 @@ import edu.dhbw.andobjviewer.models.Model;
  *
  */
 public class Model3D extends ARObject implements Serializable{
-	
+
 	private Model model;
 	private Group[] texturedGroups;
 	private Group[] nonTexturedGroups;
 	private HashMap<Material, Integer> textureIDs = new HashMap<Material, Integer>();
-	
+
 	// tgh
 	private String modelName;
 
@@ -57,7 +57,7 @@ public class Model3D extends ARObject implements Serializable{
 		super(name, pattName, markerWidth, markerCenter);
 		this.model = model;
 		this.modelName = "model"+pattName;
-		System.out.println("----from c-tuctor: modelname= "+this.modelName);
+
 		model.finalize();
 		//separate texture from non textured groups for performance reasons
 		Vector<Group> groups = model.getGroups();
@@ -78,78 +78,18 @@ public class Model3D extends ARObject implements Serializable{
 	/* tgh: added a string for the pattern filename and double for markerWidth */
 	public Model3D(String name, Model model, String pattName, double markerWidth) {
 		this(name, model, pattName, markerWidth, new double[]{0,0});
-		/*
-		super("model"+pattName, pattName, markerWidth, new double[]{0,0});
-		this.model = model;
-		this.modelName = "model"+pattName;
-		model.finalize();
-		//separate texture from non textured groups for performance reasons
-		Vector<Group> groups = model.getGroups();
-		Vector<Group> texturedGroups = new Vector<Group>();
-		Vector<Group> nonTexturedGroups = new Vector<Group>();
-		for (Iterator<Group> iterator = groups.iterator(); iterator.hasNext();) {
-			Group currGroup = iterator.next();
-			if(currGroup.isTextured()) {
-				texturedGroups.add(currGroup);
-			} else {
-				nonTexturedGroups.add(currGroup);
-			}			
-		}
-		this.texturedGroups = texturedGroups.toArray(new Group[texturedGroups.size()]);
-		this.nonTexturedGroups = nonTexturedGroups.toArray(new Group[nonTexturedGroups.size()]);	
-		*/
 	}
-	
+
 	/* tgh: added a string for the pattern filename */
 	public Model3D(String name, Model model, String pattName) {
 		this(name, model, pattName, 80.0, new double[]{0,0});
-		/*
-		super("model"+pattName, pattName, 80.0, new double[]{0,0});
-		this.model = model;
-		this.modelName = "model"+pattName;
-		model.finalize();
-		//separate texture from non textured groups for performance reasons
-		Vector<Group> groups = model.getGroups();
-		Vector<Group> texturedGroups = new Vector<Group>();
-		Vector<Group> nonTexturedGroups = new Vector<Group>();
-		for (Iterator<Group> iterator = groups.iterator(); iterator.hasNext();) {
-			Group currGroup = iterator.next();
-			if(currGroup.isTextured()) {
-				texturedGroups.add(currGroup);
-			} else {
-				nonTexturedGroups.add(currGroup);
-			}			
-		}
-		this.texturedGroups = texturedGroups.toArray(new Group[texturedGroups.size()]);
-		this.nonTexturedGroups = nonTexturedGroups.toArray(new Group[nonTexturedGroups.size()]);
-		*/	
 	}
 
-	
+
 	public Model3D(Model model) {
 		this("barcode", model, "barcode.patt", 80.0, new double[]{0,0});
-		/*
-		super("model", "barcode.patt", 80.0, new double[]{0,0});
-		this.model = model;
-		this.modelName = "modelbarcode";
-		model.finalize();
-		//separate texture from non textured groups for performance reasons
-		Vector<Group> groups = model.getGroups();
-		Vector<Group> texturedGroups = new Vector<Group>();
-		Vector<Group> nonTexturedGroups = new Vector<Group>();
-		for (Iterator<Group> iterator = groups.iterator(); iterator.hasNext();) {
-			Group currGroup = iterator.next();
-			if(currGroup.isTextured()) {
-				texturedGroups.add(currGroup);
-			} else {
-				nonTexturedGroups.add(currGroup);
-			}			
-		}
-		this.texturedGroups = texturedGroups.toArray(new Group[texturedGroups.size()]);
-		this.nonTexturedGroups = nonTexturedGroups.toArray(new Group[nonTexturedGroups.size()]);
-		*/
 	}
-	
+
 	@Override
 	public void init(GL10 gl){
 		int[]  tmpTextureID = new int[1];
@@ -168,19 +108,19 @@ public class Model3D extends ARObject implements Serializable{
 				gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR); 
 			}
 		}
-		
+
 		//transfer vertices to video memory
 	}
-	
+
 	private Writer log = new LogWriter();
-	
+
 	@Override
 	public void draw(GL10 gl) {
 		super.draw(gl);
-		
+
 		// tgh:
 		System.out.println("----From Model3D.draw(): "+modelName);
-		
+
 		//gl = (GL10) GLDebugHelper.wrap(gl, GLDebugHelper.CONFIG_CHECK_GL_ERROR, log);
 		//do positioning:
 		gl.glScalef(model.scale, model.scale, model.scale);
@@ -188,10 +128,10 @@ public class Model3D extends ARObject implements Serializable{
 		gl.glRotatef(model.xrot, 1, 0, 0);
 		gl.glRotatef(model.yrot, 0, 1, 0);
 		gl.glRotatef(model.zrot, 0, 0, 1);
-		
+
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-		
+
 		//first draw non textured groups
 		gl.glDisable(GL10.GL_TEXTURE_2D);
 		int cnt = nonTexturedGroups.length;
@@ -205,10 +145,10 @@ public class Model3D extends ARObject implements Serializable{
 				gl.glMaterialf(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, mat.shininess);
 			}
 			gl.glVertexPointer(3,GL10.GL_FLOAT, 0, group.vertices);
-	        gl.glNormalPointer(GL10.GL_FLOAT,0, group.normals);	        
-	        gl.glDrawArrays(GL10.GL_TRIANGLES, 0, group.vertexCount);
+			gl.glNormalPointer(GL10.GL_FLOAT,0, group.normals);	        
+			gl.glDrawArrays(GL10.GL_TRIANGLES, 0, group.vertexCount);
 		}
-		
+
 		//now we can continue with textured ones
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
@@ -228,10 +168,10 @@ public class Model3D extends ARObject implements Serializable{
 				}
 			}
 			gl.glVertexPointer(3,GL10.GL_FLOAT, 0, group.vertices);
-	        gl.glNormalPointer(GL10.GL_FLOAT,0, group.normals);	        
-	        gl.glDrawArrays(GL10.GL_TRIANGLES, 0, group.vertexCount);
+			gl.glNormalPointer(GL10.GL_FLOAT,0, group.normals);	        
+			gl.glDrawArrays(GL10.GL_TRIANGLES, 0, group.vertexCount);
 		}
-		
+
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
@@ -243,35 +183,35 @@ public class Model3D extends ARObject implements Serializable{
 	 */
 	class LogWriter extends Writer {
 
-	    @Override public void close() {
-	        flushBuilder();
-	    }
+		@Override public void close() {
+			flushBuilder();
+		}
 
-	    @Override public void flush() {
-	        flushBuilder();
-	    }
+		@Override public void flush() {
+			flushBuilder();
+		}
 
-	    @Override public void write(char[] buf, int offset, int count) {
-	        for(int i = 0; i < count; i++) {
-	            char c = buf[offset + i];
-	            if ( c == '\n') {
-	                flushBuilder();
-	            }
-	            else {
-	                mBuilder.append(c);
-	            }
-	        }
-	    }
+		@Override public void write(char[] buf, int offset, int count) {
+			for(int i = 0; i < count; i++) {
+				char c = buf[offset + i];
+				if ( c == '\n') {
+					flushBuilder();
+				}
+				else {
+					mBuilder.append(c);
+				}
+			}
+		}
 
-	    private void flushBuilder() {
-	        if (mBuilder.length() > 0) {
-	            Log.e("OpenGLCam", mBuilder.toString());
-	            mBuilder.delete(0, mBuilder.length());
-	        }
-	    }
+		private void flushBuilder() {
+			if (mBuilder.length() > 0) {
+				Log.e("OpenGLCam", mBuilder.toString());
+				mBuilder.delete(0, mBuilder.length());
+			}
+		}
 
-	    private StringBuilder mBuilder = new StringBuilder();
-	    
-	    
+		private StringBuilder mBuilder = new StringBuilder();
+
+
 	}
 }
