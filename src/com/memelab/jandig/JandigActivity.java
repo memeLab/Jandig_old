@@ -87,6 +87,7 @@ public class JandigActivity extends AndARActivity {
 			//createFromAssets(savedInstanceState);
 			createFromDirs(savedInstanceState);
 		}
+		Toast.makeText(JandigActivity.this, "Toque na tela para tirar uma foto!", Toast.LENGTH_LONG).show();
 	}
 
 	// function to register CustomObject objects onto the ARToolkit
@@ -160,7 +161,7 @@ public class JandigActivity extends AndARActivity {
 					if(allFilesInDir[j].endsWith(".obj")){
 						objFileName = new String(allFilesInDir[j]);
 					}
-					
+
 					// detect an image
 					else if(allFilesInDir[j].endsWith(".bmp") || allFilesInDir[j].endsWith(".gif") || allFilesInDir[j].endsWith(".jpg") || allFilesInDir[j].endsWith(".png")){
 						imgFileName = new String(allFilesInDir[j]);
@@ -393,7 +394,8 @@ public class JandigActivity extends AndARActivity {
 
 		protected void onPostExecute(Void result) {
 			if((errorMsg == null)&&(imgFile != null)){
-				Toast.makeText(JandigActivity.this, "Imagem salva em: "+imgFile.getAbsolutePath(), Toast.LENGTH_SHORT ).show();
+				//Toast.makeText(JandigActivity.this, "Imagem salva em: "+imgFile.getAbsolutePath(), Toast.LENGTH_SHORT ).show();
+				Toast.makeText(JandigActivity.this, "Imagem salva", Toast.LENGTH_SHORT ).show();
 			}
 			else {
 				Toast.makeText(JandigActivity.this, "Erro salvando imagem: "+errorMsg, Toast.LENGTH_SHORT ).show();
