@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/164/trunk/AndARModelViewer/src/edu/dhbw/andobjviewer/parser
+END
+SimpleTokenizer.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/164/trunk/AndARModelViewer/src/edu/dhbw/andobjviewer/parser/SimpleTokenizer.java
+END
+ObjParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/164/trunk/AndARModelViewer/src/edu/dhbw/andobjviewer/parser/ObjParser.java
+END
+ParseException.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/164/trunk/AndARModelViewer/src/edu/dhbw/andobjviewer/parser/ParseException.java
+END
+MtlParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/164/trunk/AndARModelViewer/src/edu/dhbw/andobjviewer/parser/MtlParser.java
+END
+Util.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/164/trunk/AndARModelViewer/src/edu/dhbw/andobjviewer/parser/Util.java
+END
