@@ -149,8 +149,6 @@ public class JandigActivity extends AndARActivity {
 			// for every thing in asset
 			final String[] allFilesInAssets = getAssets().list("");
 			for(int i=0; i<allFilesInAssets.length; i++) {
-				System.out.println("xxxxx every file in ass: "+allFilesInAssets[i]);
-
 				String patFileName = null;
 				String objFileName = null;
 				String imgFileName = null;
@@ -158,8 +156,6 @@ public class JandigActivity extends AndARActivity {
 				// for all files inside directories in assets
 				final String[] allFilesInDir = getAssets().list(allFilesInAssets[i]);
 				for(int j=0; j<allFilesInDir.length; j++) {
-					System.out.println("yyyyy every file in directory: "+allFilesInAssets[i]+File.separator+allFilesInDir[j]);
-
 					// detect if there is a .obj
 					if(allFilesInDir[j].endsWith(".obj")){
 						objFileName = new String(allFilesInDir[j]);
@@ -192,7 +188,7 @@ public class JandigActivity extends AndARActivity {
 					
 					artoolkit.registerARObject(imageobject);
 
-					System.out.println("Created ImageObject for: "+ allFilesInAssets[i]+" with "+imgFileName+" and "+patFileName);
+					System.out.println("----Created ImageObject for: "+ allFilesInAssets[i]+" with "+imgFileName+" and "+patFileName);
 				}
 				
 				// if there is an obj file and a pat file
@@ -216,10 +212,8 @@ public class JandigActivity extends AndARActivity {
 					
 					artoolkit.registerARObject(model3d);
 
-					System.out.println("Created Model3D for: "+ allFilesInAssets[i]+" with "+objFileName+" and "+patFileName);
-				}
-
-				
+					System.out.println("----Created Model3D for: "+ allFilesInAssets[i]+" with "+objFileName+" and "+patFileName);
+				}				
 			}
 		}
 		catch(Exception e){
