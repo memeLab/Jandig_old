@@ -6,58 +6,34 @@ import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
 import edu.dhbw.andar.interfaces.OpenGLRenderer;
-import edu.dhbw.andar.sample.CustomObject;
 import edu.dhbw.andar.sample.CustomRenderer;
-import edu.dhbw.andar.util.IO;
 
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.InputStream;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Arrays;
 
-import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Debug;
 import android.provider.MediaStore;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Toast;
-//import edu.dhbw.andarmodelviewer.R;
-import edu.dhbw.andobjviewer.graphics.LightingRenderer;
 import edu.dhbw.andobjviewer.graphics.Model3D;
 import edu.dhbw.andobjviewer.models.Model;
 import edu.dhbw.andobjviewer.parser.ObjParser;
-import edu.dhbw.andobjviewer.parser.ParseException;
-import edu.dhbw.andobjviewer.parser.Util;
 import edu.dhbw.andobjviewer.util.AssetsFileUtil;
 import edu.dhbw.andobjviewer.util.BaseFileUtil;
-import edu.dhbw.andobjviewer.util.SDCardFileUtil;
 
 
 /**
@@ -84,8 +60,8 @@ public class JandigActivity extends AndARActivity {
 			createFromCustomObjects(savedInstanceState);
 		}
 		else{
-			//createFromAssets(savedInstanceState);
-			createFromDirs(savedInstanceState);
+			createFromAssets(savedInstanceState);
+			//createFromDirsInAssets(savedInstanceState);
 		}
 		Toast.makeText(JandigActivity.this, "Toque na tela para tirar uma foto!", Toast.LENGTH_LONG).show();
 	}
@@ -216,7 +192,7 @@ public class JandigActivity extends AndARActivity {
 	} // createFromAssets
 
 
-	private void createFromDirs(Bundle savedInstanceState){
+	private void createFromDirsInAssets(Bundle savedInstanceState){
 		OpenGLRenderer renderer = new CustomRenderer();//optional, may be set to null
 		super.setNonARRenderer(renderer);//or might be omited
 

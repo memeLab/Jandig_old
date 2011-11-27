@@ -21,15 +21,10 @@ package edu.dhbw.andobjviewer.parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 import edu.dhbw.andobjviewer.models.Material;
 import edu.dhbw.andobjviewer.models.Model;
 import edu.dhbw.andobjviewer.util.BaseFileUtil;
-
-
-import android.R;
-import android.graphics.BitmapFactory;
 
 
 public class MtlParser { 

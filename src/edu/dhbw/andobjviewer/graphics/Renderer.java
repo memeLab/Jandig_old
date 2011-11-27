@@ -19,7 +19,6 @@
  */
 package edu.dhbw.andobjviewer.graphics;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 

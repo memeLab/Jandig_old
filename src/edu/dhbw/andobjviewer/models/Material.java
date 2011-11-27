@@ -24,11 +24,12 @@ import java.nio.FloatBuffer;
 
 import android.graphics.Bitmap;
 
-import edu.dhbw.andobjviewer.util.ArrayIterator;
 import edu.dhbw.andobjviewer.util.BaseFileUtil;
 import edu.dhbw.andobjviewer.util.MemUtil;
 
 public class Material implements Serializable {
+	private static final long serialVersionUID = -8706893554514271144L;
+
 	//default values:
 	//http://wiki.delphigl.com/index.php/glMaterial
 	private float[] ambientlightArr = {0.2f, 0.2f, 0.2f, 1.0f};
