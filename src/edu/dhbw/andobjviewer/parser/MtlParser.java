@@ -21,17 +21,23 @@ package edu.dhbw.andobjviewer.parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+<<<<<<< HEAD
 //import java.util.regex.Pattern;
+=======
+>>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 
 import edu.dhbw.andobjviewer.models.Material;
 import edu.dhbw.andobjviewer.models.Model;
 import edu.dhbw.andobjviewer.util.BaseFileUtil;
 
 
+<<<<<<< HEAD
 //import android.R;
 //import android.graphics.BitmapFactory;
 
 
+=======
+>>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 public class MtlParser { 
 
 	private BaseFileUtil fileUtil;

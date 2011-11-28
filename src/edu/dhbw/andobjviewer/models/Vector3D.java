@@ -27,6 +27,8 @@ import java.io.Serializable;
  *
  */
 public class Vector3D implements Serializable {
+	private static final long serialVersionUID = 6232443702899474611L;
+
 	/**
 	 * @param x
 	 * @param y

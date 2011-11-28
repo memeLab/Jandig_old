@@ -27,7 +27,10 @@ import java.util.Vector;
 
 import javax.microedition.khronos.opengles.GL10;
 
+<<<<<<< HEAD
 //import android.opengl.GLDebugHelper;
+=======
+>>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 import android.opengl.GLUtils;
 import android.util.Log;
 
@@ -42,21 +45,32 @@ import edu.dhbw.andobjviewer.models.Model;
  * @author tobi
  *
  */
+<<<<<<< HEAD
 public class Model3D extends ARObject implements Serializable {
+=======
+public class Model3D extends ARObject implements Serializable{
+	private static final long serialVersionUID = -1883958999715994849L;
+>>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 
 	private Model model;
 	private Group[] texturedGroups;
 	private Group[] nonTexturedGroups;
 	private HashMap<Material, Integer> textureIDs = new HashMap<Material, Integer>();
 
+<<<<<<< HEAD
 	// tgh
 	//private String modelName;
 
+=======
+>>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 	/* tgh: added a string for the pattern filename and doubles for markerWidth and markerCenter */
 	public Model3D(String name, Model model, String pattName, double markerWidth, double[] markerCenter) {
 		super(name, pattName, markerWidth, markerCenter);
 		this.model = model;
+<<<<<<< HEAD
 		//this.modelName = "model"+pattName;
+=======
+>>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 
 		model.finalize();
 		//separate texture from non textured groups for performance reasons

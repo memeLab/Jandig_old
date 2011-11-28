@@ -20,11 +20,17 @@
 package edu.dhbw.andobjviewer.models;
 
 import java.io.Serializable;
+<<<<<<< HEAD
 //import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Iterator;
 //import java.util.Vector;
+=======
+import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import java.util.Iterator;
+>>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 
 import edu.dhbw.andobjviewer.util.MemUtil;
 
@@ -34,6 +40,8 @@ import edu.dhbw.andobjviewer.util.MemUtil;
  *
  */
 public class Group implements Serializable {
+	private static final long serialVersionUID = 6749079850284168179L;
+
 	private String materialName = "default";
 	private transient Material material;
 	/**

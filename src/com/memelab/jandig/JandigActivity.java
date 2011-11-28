@@ -6,6 +6,7 @@ import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
 import edu.dhbw.andar.interfaces.OpenGLRenderer;
+<<<<<<< HEAD
 //import edu.dhbw.andar.sample.CustomObject;
 import edu.dhbw.andar.sample.CustomRenderer;
 //import edu.dhbw.andar.util.IO;
@@ -58,6 +59,36 @@ import edu.dhbw.andobjviewer.parser.ObjParser;
 import edu.dhbw.andobjviewer.util.AssetsFileUtil;
 import edu.dhbw.andobjviewer.util.BaseFileUtil;
 //import edu.dhbw.andobjviewer.util.SDCardFileUtil;
+=======
+import edu.dhbw.andar.sample.CustomRenderer;
+
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Arrays;
+
+import android.content.ContentValues;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.provider.MediaStore;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.Toast;
+import edu.dhbw.andobjviewer.graphics.Model3D;
+import edu.dhbw.andobjviewer.models.Model;
+import edu.dhbw.andobjviewer.parser.ObjParser;
+import edu.dhbw.andobjviewer.util.AssetsFileUtil;
+import edu.dhbw.andobjviewer.util.BaseFileUtil;
+>>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 
 
 /**
@@ -84,8 +115,8 @@ public class JandigActivity extends AndARActivity {
 			createFromCustomObjects(savedInstanceState);
 		}
 		else{
-			//createFromAssets(savedInstanceState);
-			createFromDirs(savedInstanceState);
+			createFromAssets(savedInstanceState);
+			//createFromDirsInAssets(savedInstanceState);
 		}
 		Toast.makeText(JandigActivity.this, "Jandig 0.3. Toque na tela para tirar uma foto!", Toast.LENGTH_LONG).show();
 	}
@@ -217,9 +248,15 @@ public class JandigActivity extends AndARActivity {
 	} // createFromAssets
 
 
+<<<<<<< HEAD
 	private void createFromDirs(Bundle savedInstanceState){
 		OpenGLRenderer renderer = new CustomRenderer(); // optional, may be set to null
 		super.setNonARRenderer(renderer); // or might be omited
+=======
+	private void createFromDirsInAssets(Bundle savedInstanceState){
+		OpenGLRenderer renderer = new CustomRenderer();//optional, may be set to null
+		super.setNonARRenderer(renderer);//or might be omited
+>>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 
 		/* tgh: Model3D... wooohhooooooo!! */
 		Model model;

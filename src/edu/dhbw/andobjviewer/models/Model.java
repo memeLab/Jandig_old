@@ -19,9 +19,12 @@
  */
 package edu.dhbw.andobjviewer.models;
 
+<<<<<<< HEAD
 //import java.io.IOException;
 //import java.io.ObjectInputStream;
 //import java.io.ObjectOutputStream;
+=======
+>>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,6 +33,8 @@ import java.util.Vector;
 import edu.dhbw.andobjviewer.util.BaseFileUtil;
 
 public class Model implements Serializable{
+	private static final long serialVersionUID = 4150836563435101225L;
+
 	//position/rotation/scale
 	public float xrot = 90;
     public float yrot = 0;
@@ -74,7 +79,7 @@ public class Model implements Serializable{
 	}
 	
 	public void setFileUtil(BaseFileUtil fileUtil) {
-		for (Iterator iterator = materials.values().iterator(); iterator.hasNext();) {
+		for (Iterator<Material> iterator = materials.values().iterator(); iterator.hasNext();) {
 			Material mat = (Material) iterator.next();
 			mat.setFileUtil(fileUtil);
 		}
@@ -113,7 +118,7 @@ public class Model implements Serializable{
 	public void finalize() {
 		if(STATE != STATE_FINALIZED) {
 			STATE = STATE_FINALIZED;
-			for (Iterator iterator = groups.iterator(); iterator.hasNext();) {
+			for (Iterator<Group> iterator = groups.iterator(); iterator.hasNext();) {
 				Group grp = (Group) iterator.next();
 				grp.finalize();
 				grp.setMaterial(materials.get(grp.getMaterialName()));
