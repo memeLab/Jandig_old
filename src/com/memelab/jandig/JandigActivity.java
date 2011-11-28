@@ -255,7 +255,7 @@ public class JandigActivity extends AndARActivity {
 					else if(allFilesInDir[j].endsWith(".patt")){
 						patFileName = new String(allFilesInDir[j]);
 					}
-				}
+				} // for all files in dir
 
 				// if there is an obj file and a pat file --> it's a 3D .obj
 				if((objFileName!=null) && (patFileName!=null)) {
@@ -300,8 +300,8 @@ public class JandigActivity extends AndARActivity {
 
 					System.out.println("----Created ImageObject for: "+ allFilesInAssets[i]+" with "+imgFileName+" and "+patFileName);
 				}
-			}
-		}
+			} // for all dirs in assets
+		} // try
 		catch(Exception e){
 
 		}
