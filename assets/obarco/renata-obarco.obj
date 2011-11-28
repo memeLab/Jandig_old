@@ -1,6 +1,6 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib Barco Triangulado.mtl
+mtllib renata-obarco.mtl
 g default
 v -8.126800 4.860969 4.637217
 v -8.085331 5.502419 4.375771
