@@ -20,17 +20,11 @@
 package edu.dhbw.andobjviewer.models;
 
 import java.io.Serializable;
-<<<<<<< HEAD
 //import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Iterator;
 //import java.util.Vector;
-=======
-import java.nio.FloatBuffer;
-import java.util.ArrayList;
-import java.util.Iterator;
->>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 
 import edu.dhbw.andobjviewer.util.MemUtil;
 

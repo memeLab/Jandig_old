@@ -23,10 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-<<<<<<< HEAD
 //import java.util.Vector;
-=======
->>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 import edu.dhbw.andobjviewer.models.Group;
 import edu.dhbw.andobjviewer.models.Model;
 import edu.dhbw.andobjviewer.util.BaseFileUtil;

@@ -19,12 +19,10 @@
  */
 package edu.dhbw.andobjviewer.models;
 
-<<<<<<< HEAD
 //import java.io.IOException;
 //import java.io.ObjectInputStream;
 //import java.io.ObjectOutputStream;
-=======
->>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;

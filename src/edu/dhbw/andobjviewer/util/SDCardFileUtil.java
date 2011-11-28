@@ -4,14 +4,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-<<<<<<< HEAD
 //import java.io.InputStreamReader;
 //import java.lang.reflect.Field;
 
 //import android.content.res.Resources;
-=======
 
->>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 

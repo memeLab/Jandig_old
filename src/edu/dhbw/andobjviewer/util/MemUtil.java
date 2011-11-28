@@ -4,10 +4,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-<<<<<<< HEAD
 //import android.content.res.Resources;
-=======
->>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
+
 
 public class MemUtil {
 	public static FloatBuffer makeFloatBufferFromArray(float[] arr) {

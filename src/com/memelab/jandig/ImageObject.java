@@ -1,12 +1,9 @@
 package com.memelab.jandig;
 
-<<<<<<< HEAD
 //import java.nio.FloatBuffer;
 
 //import java.io.BufferedReader;
-=======
 
->>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
 import java.io.InputStream;
 
 import android.graphics.Bitmap;
@@ -15,12 +12,13 @@ import android.opengl.GLUtils;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import com.memelab.jandig.SimpleImage;
+
 import edu.dhbw.andar.ARObject;
-<<<<<<< HEAD
 //import edu.dhbw.andar.sample.SimpleBox;
 //import edu.dhbw.andar.util.GraphicsUtil;
-=======
->>>>>>> 5cfe77f55670528e1babfb642ff40afd91acec9b
+
+
 
 /**
  * An example of an AR object being drawn on a marker.
@@ -29,8 +27,6 @@ import edu.dhbw.andar.ARObject;
  */
 public class ImageObject extends ARObject {
 
-	/**
-	 */
 	private SimpleImage simg;
 
 	private InputStream textureStream;
