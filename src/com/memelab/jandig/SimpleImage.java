@@ -27,10 +27,10 @@ public class SimpleImage {
 				0.0f, 0.0f,  1.0f
 		};
 		float texturef[] = {
-				0.0f, 1.0f,
-				1.0f, 1.0f,
+				0.0f, 1.0f*h/1024,
+				1.0f*w/1024, 1.0f*h/1024,
 				0.0f, 0.0f,
-				1.0f, 0.0f
+				1.0f*w/1024, 0.0f
 		};
 
 		vertices = GraphicsUtil.makeFloatBuffer(verticesf);

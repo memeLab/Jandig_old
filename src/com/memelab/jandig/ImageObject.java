@@ -71,10 +71,16 @@ public class ImageObject extends ARObject {
 	public void init(GL10 gl) {
 		// can use this space to read-in texture...
 		if(textureStream != null) {
-			Bitmap bm = BitmapFactory.decodeStream(textureStream);
+			Bitmap tbmp = BitmapFactory.decodeStream(textureStream);
+			int potW = 1024;
+			int potH = 1024;
+			int[] bgnd = new int[potW*potH];
+
+			tbmp.getPixels(bgnd,0,potW, 0,0, tbmp.getWidth(), tbmp.getHeight());
+			Bitmap bm = Bitmap.createBitmap(bgnd, potW, potH, tbmp.getConfig());
 
 			// init a simple image with height taken from bitmap
-			simg = new SimpleImage(bm.getWidth(), bm.getHeight());
+			simg = new SimpleImage(tbmp.getWidth(), tbmp.getHeight());
 
 			// generate one texture pointer
 			gl.glGenTextures(1, textures, 0);
@@ -82,13 +88,15 @@ public class ImageObject extends ARObject {
 			gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
 
 			// create nearest filtered texture
-			gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
+			//gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
+			gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
 			gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
-
+			
 			// Use Android GLUtils to specify a two-dimensional texture image from our bitmap
 			GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bm, 0);
-
+			
 			// Clean up
+			tbmp.recycle();
 			bm.recycle();
 		}
 	}

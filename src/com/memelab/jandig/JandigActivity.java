@@ -110,17 +110,25 @@ public class JandigActivity extends AndARActivity {
 
 			ImageObject myImgObject;
 
-			InputStream ins = getAssets().open("Images/ap0_16x16.png");
-			myImgObject = new ImageObject("test0", "ap0_16x16.patt", ins, 50.0, new double[]{0,0});
+			InputStream ins = getAssets().open("Images/borboleta.jpg");
+			myImgObject = new ImageObject("test0", "borboleta.patt", ins, 50.0, new double[]{0,0});
 			artoolkit.registerARObject(myImgObject);
 
-			ins = getAssets().open("Images/ap1_16x16.png");
-			myImgObject = new ImageObject("test0", "ap1_16x16.patt", ins, 50.0, new double[]{0,0});
-			artoolkit.registerARObject(myImgObject);
+			BaseFileUtil fileUtil = new AssetsFileUtil(getAssets());
+			fileUtil.setBaseFolder("Images/");
+			ObjParser parser = new ObjParser(fileUtil);
+			BufferedReader fileReader = fileUtil.getReaderFromName("superman.obj");
+			Model model = parser.parse("superman.obj", fileReader);
+			Model3D model3d = new Model3D("super", model,"superman.patt", 80.0);
+			artoolkit.registerARObject(model3d);
 
-			ins = getAssets().open("Images/ap2_16x16.png");
-			myImgObject = new ImageObject("test0", "ap2_16x16.patt", ins, 50.0, new double[]{0,0});
-			artoolkit.registerARObject(myImgObject);
+			//ins = getAssets().open("Images/ap1_16x16.png");
+			//myImgObject = new ImageObject("test0", "ap1_16x16.patt", ins, 50.0, new double[]{0,0});
+			//artoolkit.registerARObject(myImgObject);
+
+			//ins = getAssets().open("Images/ap2_16x16.png");
+			//myImgObject = new ImageObject("test0", "ap2_16x16.patt", ins, 50.0, new double[]{0,0});
+			//artoolkit.registerARObject(myImgObject);
 
 		} 
 		catch (AndARException ex){
