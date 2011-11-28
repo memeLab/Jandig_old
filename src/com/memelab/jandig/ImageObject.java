@@ -1,8 +1,8 @@
 package com.memelab.jandig;
 
-import java.nio.FloatBuffer;
+//import java.nio.FloatBuffer;
 
-import java.io.BufferedReader;
+//import java.io.BufferedReader;
 import java.io.InputStream;
 
 import android.graphics.Bitmap;
@@ -12,8 +12,8 @@ import android.opengl.GLUtils;
 import javax.microedition.khronos.opengles.GL10;
 
 import edu.dhbw.andar.ARObject;
-import edu.dhbw.andar.sample.SimpleBox;
-import edu.dhbw.andar.util.GraphicsUtil;
+//import edu.dhbw.andar.sample.SimpleBox;
+//import edu.dhbw.andar.util.GraphicsUtil;
 
 /**
  * An example of an AR object being drawn on a marker.

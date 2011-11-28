@@ -1,7 +1,7 @@
 package edu.dhbw.andobjviewer.util;
 
 import java.io.BufferedReader;
-import java.io.File;
+//import java.io.File;
 
 import android.graphics.Bitmap;
 

@@ -21,15 +21,15 @@ package edu.dhbw.andobjviewer.parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.regex.Pattern;
+//import java.util.regex.Pattern;
 
 import edu.dhbw.andobjviewer.models.Material;
 import edu.dhbw.andobjviewer.models.Model;
 import edu.dhbw.andobjviewer.util.BaseFileUtil;
 
 
-import android.R;
-import android.graphics.BitmapFactory;
+//import android.R;
+//import android.graphics.BitmapFactory;
 
 
 public class MtlParser { 
@@ -91,13 +91,13 @@ public class MtlParser {
 					} else if(line.startsWith("map_Kd ")) {
 						//limited texture support
 						String imageFileName = line.substring(7);
-						//für resources:Bitmap mBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.pic1);
+						//fï¿½r resources:Bitmap mBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.pic1);
 						curMat.setFileUtil(fileUtil);
 						curMat.setBitmapFileName(imageFileName);
 					} else if(line.startsWith("mapKd ")) {
 						//limited texture support
 						String imageFileName = line.substring(6);
-						//für resources:Bitmap mBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.pic1);
+						//fï¿½r resources:Bitmap mBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.pic1);
 						curMat.setFileUtil(fileUtil);
 						curMat.setBitmapFileName(imageFileName);
 					}

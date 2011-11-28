@@ -27,7 +27,7 @@ import java.util.Vector;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.opengl.GLDebugHelper;
+//import android.opengl.GLDebugHelper;
 import android.opengl.GLUtils;
 import android.util.Log;
 
@@ -42,7 +42,7 @@ import edu.dhbw.andobjviewer.models.Model;
  * @author tobi
  *
  */
-public class Model3D extends ARObject implements Serializable{
+public class Model3D extends ARObject implements Serializable {
 
 	private Model model;
 	private Group[] texturedGroups;
@@ -50,13 +50,13 @@ public class Model3D extends ARObject implements Serializable{
 	private HashMap<Material, Integer> textureIDs = new HashMap<Material, Integer>();
 
 	// tgh
-	private String modelName;
+	//private String modelName;
 
 	/* tgh: added a string for the pattern filename and doubles for markerWidth and markerCenter */
 	public Model3D(String name, Model model, String pattName, double markerWidth, double[] markerCenter) {
 		super(name, pattName, markerWidth, markerCenter);
 		this.model = model;
-		this.modelName = "model"+pattName;
+		//this.modelName = "model"+pattName;
 
 		model.finalize();
 		//separate texture from non textured groups for performance reasons
@@ -112,7 +112,7 @@ public class Model3D extends ARObject implements Serializable{
 		//transfer vertices to video memory
 	}
 
-	private Writer log = new LogWriter();
+	//private Writer log = new LogWriter();
 
 	@Override
 	public void draw(GL10 gl) {

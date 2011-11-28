@@ -6,58 +6,58 @@ import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
 import edu.dhbw.andar.interfaces.OpenGLRenderer;
-import edu.dhbw.andar.sample.CustomObject;
+//import edu.dhbw.andar.sample.CustomObject;
 import edu.dhbw.andar.sample.CustomRenderer;
-import edu.dhbw.andar.util.IO;
+//import edu.dhbw.andar.util.IO;
 
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
+//import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
+//import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
+//import java.io.FileReader;
+//import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
+//import java.io.InputStreamReader;
 import java.io.InputStream;
-import java.net.URI;
+//import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+//import java.util.Date;
 import java.util.Arrays;
 
-import android.app.ProgressDialog;
+//import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
+//import android.content.ContentResolver;
+//import android.content.Context;
+//import android.content.Intent;
+//import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
+//import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Debug;
+//import android.os.Debug;
 import android.provider.MediaStore;
-import android.view.Menu;
-import android.view.MenuItem;
+//import android.view.Menu;
+//import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
+//import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Toast;
 //import edu.dhbw.andarmodelviewer.R;
-import edu.dhbw.andobjviewer.graphics.LightingRenderer;
+//import edu.dhbw.andobjviewer.graphics.LightingRenderer;
 import edu.dhbw.andobjviewer.graphics.Model3D;
 import edu.dhbw.andobjviewer.models.Model;
 import edu.dhbw.andobjviewer.parser.ObjParser;
-import edu.dhbw.andobjviewer.parser.ParseException;
-import edu.dhbw.andobjviewer.parser.Util;
+//import edu.dhbw.andobjviewer.parser.ParseException;
+//import edu.dhbw.andobjviewer.parser.Util;
 import edu.dhbw.andobjviewer.util.AssetsFileUtil;
 import edu.dhbw.andobjviewer.util.BaseFileUtil;
-import edu.dhbw.andobjviewer.util.SDCardFileUtil;
+//import edu.dhbw.andobjviewer.util.SDCardFileUtil;
 
 
 /**
@@ -87,13 +87,13 @@ public class JandigActivity extends AndARActivity {
 			//createFromAssets(savedInstanceState);
 			createFromDirs(savedInstanceState);
 		}
-		Toast.makeText(JandigActivity.this, "Toque na tela para tirar uma foto!", Toast.LENGTH_LONG).show();
+		Toast.makeText(JandigActivity.this, "Jandig 0.3. Toque na tela para tirar uma foto!", Toast.LENGTH_LONG).show();
 	}
 
 	// function to register CustomObject objects onto the ARToolkit
 	private void createFromCustomObjects(Bundle savedInstanceState){
-		OpenGLRenderer renderer = new JandigRenderer();//optional, may be set to null
-		super.setNonARRenderer(renderer);//or might be omited
+		OpenGLRenderer renderer = new JandigRenderer();// optional, may be set to null
+		super.setNonARRenderer(renderer);// or might be omited
 
 		artoolkit = super.getArtoolkit();
 
@@ -124,7 +124,7 @@ public class JandigActivity extends AndARActivity {
 
 		} 
 		catch (AndARException ex){
-			//handle the exception, that means: show the user what happened
+			// handle the exception, that means: show the user what happened
 			System.out.println("");
 		}
 		catch(Exception e) {
@@ -135,8 +135,9 @@ public class JandigActivity extends AndARActivity {
 
 	// function to register objects in the assets directory onto the ARToolkit
 	private void createFromAssets(Bundle savedInstanceState) {
-		OpenGLRenderer renderer = new CustomRenderer();//optional, may be set to null
-		super.setNonARRenderer(renderer);//or might be omited
+	 
+		OpenGLRenderer renderer = new CustomRenderer(); // optional, may be set to null
+		super.setNonARRenderer(renderer); // or might be omited
 
 		/* tgh: Model3D... wooohhooooooo!! */
 		Model model;
@@ -185,7 +186,7 @@ public class JandigActivity extends AndARActivity {
 			final String[] allImgFilesInAssets = getAssets().list("Images");
 			for(int i=0; i<allImgFilesInAssets.length; i++) {
 				// maybe add a check for .gif/.GIF/.Gif, .bmp/.BMP/.Bmp, .jpg/.jpeg/.JPG/.JPEG/.Jpg/.Jpeg and .png/.PNG/.Png
-				//if(allImgFilesInAssets[i].endsWith(".obj")){
+				//if(allImgFilesInAssets[i].endsWith(".obj")) {
 				String baseName = allImgFilesInAssets[i].substring(0,allImgFilesInAssets[i].lastIndexOf("."));
 				String ImageFileName = allImgFilesInAssets[i];
 
@@ -204,7 +205,7 @@ public class JandigActivity extends AndARActivity {
 			}
 		}
 		catch(Exception e){
-			//handle the exception, that means: show the user what happened
+			// handle the exception, that means: show the user what happened
 			System.out.println("Some exception somewhere was thrown");
 			System.out.println("string: "+e.toString());
 			System.out.println("message: "+e.getMessage());
@@ -217,8 +218,8 @@ public class JandigActivity extends AndARActivity {
 
 
 	private void createFromDirs(Bundle savedInstanceState){
-		OpenGLRenderer renderer = new CustomRenderer();//optional, may be set to null
-		super.setNonARRenderer(renderer);//or might be omited
+		OpenGLRenderer renderer = new CustomRenderer(); // optional, may be set to null
+		super.setNonARRenderer(renderer); // or might be omited
 
 		/* tgh: Model3D... wooohhooooooo!! */
 		Model model;
@@ -230,7 +231,7 @@ public class JandigActivity extends AndARActivity {
 		//      inside each dir, look for a .obj, or a .png/.gif/.bmp/.jpg
 		//      if any of these exist, find a .patt of any name...
 		try{
-			// for every thing in asset
+			// for every thing in assets
 			final String[] allFilesInAssets = getAssets().list("");
 			for(int i=0; i<allFilesInAssets.length; i++) {
 				String patFileName = null;
