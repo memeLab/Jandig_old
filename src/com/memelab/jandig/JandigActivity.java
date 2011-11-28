@@ -87,7 +87,7 @@ public class JandigActivity extends AndARActivity {
 			//createFromAssets(savedInstanceState);
 			createFromDirsInAssets(savedInstanceState);
 		}
-		Toast.makeText(JandigActivity.this, "Jandig 0.3. Toque na tela para tirar uma foto!", Toast.LENGTH_LONG).show();
+		Toast.makeText(JandigActivity.this, "Jandig 0.3.5 - toque na tela para tirar uma foto!", Toast.LENGTH_LONG).show();
 	}
 
 	// function to register CustomObject objects onto the ARToolkit
