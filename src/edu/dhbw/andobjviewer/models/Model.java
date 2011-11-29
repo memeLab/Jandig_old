@@ -45,6 +45,11 @@ public class Model implements Serializable{
     public static final int STATE_DYNAMIC = 0;
     public static final int STATE_FINALIZED = 1;
     
+    // tgh: size parameters...
+    public float xdim = 0;
+    public float ydim = 0;
+    public float zdim = 0;
+    
 	
 	private Vector<Group> groups = new Vector<Group>();
 	/**
@@ -94,6 +99,17 @@ public class Model implements Serializable{
 			this.scale = 0.0001f;
 	}
 
+	// tgh
+	public void setXdim(float f){
+		this.xdim = f;
+	}
+	public void setYdim(float f){
+		this.ydim = f;
+	}
+	public void setZdim(float f){
+		this.zdim = f;
+	}
+	
 	public void setXrot(float dY) {
 		this.xrot += dY;
 	}

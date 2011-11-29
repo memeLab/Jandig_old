@@ -65,6 +65,10 @@ public class ObjParser {
 		ArrayList<float[]> normals = new ArrayList<float[]>(1000);
 		ArrayList<float[]> texcoords = new ArrayList<float[]>();
 		
+		// tgh: get max/min x,y,z dimensions
+		float maxX, maxY, maxZ, minX, minY, minZ;
+		maxX = maxY = maxZ = Float.NEGATIVE_INFINITY;
+		minX = minY = minZ = Float.POSITIVE_INFINITY;
 		
 		Model model = new Model();
 		Group curGroup = new Group();
@@ -86,10 +90,30 @@ public class ObjParser {
 					//add new vertex to vector
 					String endOfLine = line.substring(2);
 					spaceTokenizer.setStr(endOfLine);
+					
+					// tgh: x,z,y on the file.
+					//   meaning: the second coordinate is the one for the axis that comes out of the screen
+					float x0 = Float.parseFloat(spaceTokenizer.next());
+					float z0 = Float.parseFloat(spaceTokenizer.next());
+					float y0 = Float.parseFloat(spaceTokenizer.next());
+
+					// update the max/min variables
+					maxX = (x0 > maxX)?x0:maxX;
+					minX = (x0 < minX)?x0:minX;
+					maxY = (y0 > maxY)?y0:maxY;
+					minY = (y0 < minY)?y0:minY;
+					maxZ = (z0 > maxZ)?z0:maxZ;
+					minZ = (z0 < minZ)?z0:minZ;
+
+					// tgh: x,z,y
+					vertices.add(new float[]{x0,z0,y0});
+
+					/*
 					vertices.add(new float[]{
 							Float.parseFloat(spaceTokenizer.next()),
 							Float.parseFloat(spaceTokenizer.next()),
 							Float.parseFloat(spaceTokenizer.next())});
+							*/
 				}
 				else if (line.startsWith("vt ")) {
 					//add new texture vertex to vector
@@ -228,6 +252,12 @@ public class ObjParser {
 			Group group = (Group) groupIt.next();
 			group.setMaterial(model.getMaterial(group.getMaterialName()));
 		}
+		
+		// tgh: set the dimension variables in the model before returning it		
+		model.setXdim(Math.abs(maxX-minX));
+		model.setYdim(Math.abs(maxY-minY));
+		model.setZdim(Math.abs(maxZ-minZ));
+
 		return model;
 	}
 }

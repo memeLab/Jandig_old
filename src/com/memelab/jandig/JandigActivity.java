@@ -271,8 +271,12 @@ public class JandigActivity extends AndARActivity {
 					ObjParser parser = new ObjParser(fileUtil);
 					BufferedReader fileReader = fileUtil.getReaderFromName(objFileName);
 					model = parser.parse(objFileName, fileReader);
-					model3d = new Model3D(allFilesInAssets[i], model, new String(allFilesInAssets[i]+File.separator+patFileName), 80.0);
 
+					// scale the model based on the x/y dimensions from the .obj file
+					float scalef = 80.0f;
+					scalef = Math.max(model.xdim,model.ydim)*4.0f;
+
+					model3d = new Model3D(allFilesInAssets[i], model, new String(allFilesInAssets[i]+File.separator+patFileName), scalef);
 
 					// hack to overcome the copying procedure in ARToolkit.registerARObject()
 					InputStream in = getAssets().open(allFilesInAssets[i]+File.separator+patFileName);					
