@@ -129,8 +129,7 @@ public class ObjParser {
 					spaceTokenizer.setStr(endOfLine);
 					int faces = spaceTokenizer.delimOccurCount()+1;
 					if(faces != 3) {
-						throw new ParseException(modelName,
-								lineNum, "only triangle faces are supported");
+						throw new ParseException(modelName, lineNum, "only triangle faces are supported");
 					}
 					for (int i = 0; i < 3; i++) {//only triangles supported
 						String face = spaceTokenizer.next();
