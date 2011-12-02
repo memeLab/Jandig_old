@@ -8,6 +8,7 @@ import edu.dhbw.andar.sample.CustomRenderer;
 import edu.dhbw.andobjviewer.graphics.Model3D;
 import edu.dhbw.andobjviewer.models.Model;
 import edu.dhbw.andobjviewer.parser.ObjParser;
+import edu.dhbw.andobjviewer.parser.ParseException;
 import edu.dhbw.andobjviewer.util.AssetsFileUtil;
 import edu.dhbw.andobjviewer.util.BaseFileUtil;
 //import edu.dhbw.andobjviewer.util.SDCardFileUtil;
@@ -266,12 +267,16 @@ public class JandigActivity extends AndARActivity {
 
 				// if there is an obj file and a pat file --> it's a 3D .obj
 				if((objFileName!=null) && (patFileName!=null)) {
+					System.out.println("---Creating 3D!");
+
 					BaseFileUtil fileUtil = new AssetsFileUtil(getAssets());
 					fileUtil.setBaseFolder(allFilesInAssets[i]+File.separator);
 					ObjParser parser = new ObjParser(fileUtil);
 					BufferedReader fileReader = fileUtil.getReaderFromName(objFileName);
 					model = parser.parse(objFileName, fileReader);
 
+					System.out.println("---Parsed 3D!");
+					
 					// scale the model based on the x/y dimensions from the .obj file
 					float scalef = 80.0f;
 					scalef = Math.max(model.xdim,model.ydim)*4.0f;
@@ -313,6 +318,12 @@ public class JandigActivity extends AndARActivity {
 				}
 			} // for all dirs in assets
 		} // try
+		catch(ParseException e){
+			System.out.println("---msg: "+e.getMessage());
+			if(e.getCause() != null) {
+				System.out.println("---cause msg: "+e.getCause().getMessage());			
+			}
+		}
 		catch(Exception e){
 
 		}
