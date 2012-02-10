@@ -226,8 +226,15 @@ public class JandigActivity extends AndARActivity {
 
 
 	private void createFromDirsInAssets(Bundle savedInstanceState){
-		OpenGLRenderer renderer = new CustomRenderer(); // optional, may be set to null
+		// OpenGLRenderer renderer = new JandigRenderer(); // optional, may be set to null 
+		// super.setNonARRenderer(renderer); // or might be omited
+		
+		// Bullshit. This has to be set in order to see the stuff on the screen.
+		//   Also, although this is supposed to be the non-AR renderer, it sets up lights
+		//   for 3D objects...  
+		OpenGLRenderer renderer = new JandigRenderer(); // optional, may be set to null 
 		super.setNonARRenderer(renderer); // or might be omited
+		
 
 		/* tgh: Model3D... wooohhooooooo!! */
 		Model model;
