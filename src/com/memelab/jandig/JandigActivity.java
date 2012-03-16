@@ -42,6 +42,7 @@ import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.MotionEvent;
 import android.view.View;
@@ -374,7 +375,8 @@ public class JandigActivity extends AndARActivity {
 	class TakeAsyncScreenshot extends AsyncTask<Void, Void, Void> {
 		private String errorMsg = null;
 
-		private File imgDir  = new File("/sdcard/Jandig/");
+		//private File imgDir  = new File("/sdcard/Jandig/");
+		private File imgDir  = new File(Environment.getExternalStorageDirectory()+File.separator+"Jandig"+File.separator);
 		private File imgFile = null;
 
 		private Calendar calendar = Calendar.getInstance();
