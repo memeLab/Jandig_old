@@ -9,7 +9,9 @@ import edu.dhbw.andar.util.GraphicsUtil;
 public class SimpleImage {
 	private FloatBuffer vertices, normals, texture;
 
-	public SimpleImage(int w, int h) {
+	// w,h     := width and height of the image
+	// tw, th  := width and height of the texture
+	public SimpleImage(int w, int h, int tw, int th) {
 		float mind = (w<h)?w:h;
 		float verticesf[] = {
 				// with scaling!
@@ -27,10 +29,10 @@ public class SimpleImage {
 				0.0f, 0.0f,  1.0f
 		};
 		float texturef[] = {
-				0.0f, 1.0f*h/1024,
-				1.0f*w/1024, 1.0f*h/1024,
+				0.0f, 1.0f*h/th,
+				1.0f*w/tw, 1.0f*h/th,
 				0.0f, 0.0f,
-				1.0f*w/1024, 0.0f
+				1.0f*w/tw, 0.0f
 		};
 
 		vertices = GraphicsUtil.makeFloatBuffer(verticesf);
