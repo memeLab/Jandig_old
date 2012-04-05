@@ -41,21 +41,27 @@ public class SimpleImage {
 	}
 
 
-	public final void draw(GL10 gl) {	
+	public final void draw(GL10 gl) {
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
 		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 
 		gl.glDisable(GL10.GL_LIGHTING);
 		gl.glEnable(GL10.GL_TEXTURE_2D);
-		
+
+		// from : http://stackoverflow.com/questions/3163862/opengl-translucent-texture-over-other-texture
+		gl.glEnable(GL10.GL_BLEND);
+
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertices);
 		gl.glNormalPointer(GL10.GL_FLOAT,0, normals);
 		gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, texture);
 
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
-
+		
+		gl.glDisable(GL10.GL_TEXTURE_2D);
+		gl.glDisable(GL10.GL_BLEND);
 		gl.glEnable(GL10.GL_LIGHTING);
+
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
