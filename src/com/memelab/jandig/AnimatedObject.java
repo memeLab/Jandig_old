@@ -6,11 +6,14 @@ package com.memelab.jandig;
 //import edu.dhbw.andar.util.GraphicsUtil;
 
 import java.io.InputStream;
+import java.nio.FloatBuffer;
+
 import android.graphics.Bitmap;
 import android.opengl.GLUtils;
 import javax.microedition.khronos.opengles.GL10;
 import com.memelab.jandig.SimpleImage;
 import edu.dhbw.andar.ARObject;
+import edu.dhbw.andar.util.GraphicsUtil;
 import eu.andlabs.animatedgifs.GifDecoder;
 
 
@@ -27,7 +30,7 @@ public class AnimatedObject extends ARObject {
 	private int[] textures;
 
 	// for gif
-	private static final int RESTART_TIME = 15000;
+	private static final int RESTART_TIME = 2000;  // 2 seconds
 	private long  lastTime;
 	private int[] frameDelays;
 	private int   totalFrames;
@@ -80,7 +83,7 @@ public class AnimatedObject extends ARObject {
 		}
 
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[frameCounter]);
-
+		
 		//draw the surface
 		simg.draw(gl);
 	}
@@ -119,19 +122,24 @@ public class AnimatedObject extends ARObject {
 				tbmp = mGD.getFrame(f);
 				frameDelays[f] = mGD.getDelay(f);
 				int[] bgnd = new int[potW*potH];
+				
 				// move frame image to a larger image
 				tbmp.getPixels(bgnd,0,potW, 0,0, tbmp.getWidth(), tbmp.getHeight());
+
 				// create larger image
-				Bitmap bm = Bitmap.createBitmap(bgnd, potW, potH, tbmp.getConfig());
+				//Bitmap bm = Bitmap.createBitmap(bgnd, potW, potH, tbmp.getConfig());
+				Bitmap bm = Bitmap.createBitmap(bgnd, potW, potH, Bitmap.Config.ARGB_8888);
 				
 				// ...and bind it to our array
 				//  bind first texture to GL renderer
+				gl.glEnable(GL10.GL_TEXTURE_2D);
 				gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[f]);
 
 				// create nearest filtered texture
-				//gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
 				gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
 				gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+				// from : http://stackoverflow.com/questions/3163862/opengl-translucent-texture-over-other-texture
+				gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
 				// Use Android GLUtils to specify a two-dimensional texture image from our bitmap
 				//   read bitmap into the last texture that's been bound to the renderer
