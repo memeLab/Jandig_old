@@ -52,7 +52,7 @@ public class JandigRenderer implements OpenGLRenderer {
 	private FloatBuffer ambientLightBuffer3 = GraphicsUtil.makeFloatBuffer(ambientlight3);
 
 	public final void draw(GL10 gl) {
-		
+
 	}
 
 	 

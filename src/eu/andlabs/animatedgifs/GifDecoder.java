@@ -1,8 +1,8 @@
 package eu.andlabs.animatedgifs;
 
 /*
- *  From : http://droid-blog.net/2011/10/14/tutorial-how-to-use-animated-gifs-in-android-part-1/
- *         http://code.google.com/p/animated-gifs-in-android/
+ *  From : http://droid-blog.net/2011/10/14/tutorial-how-to-use-animated-gifs-in-android-part-1
+ *         http://code.google.com/p/animated-gifs-in-android
  */
 
 

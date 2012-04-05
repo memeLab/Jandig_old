@@ -34,7 +34,7 @@ public class SimpleImage {
 				0.0f, 0.0f,
 				1.0f*w/tw, 0.0f
 		};
-
+		
 		vertices = GraphicsUtil.makeFloatBuffer(verticesf);
 		normals = GraphicsUtil.makeFloatBuffer(normalsf);
 		texture = GraphicsUtil.makeFloatBuffer(texturef);
@@ -57,7 +57,7 @@ public class SimpleImage {
 		gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, texture);
 
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
-		
+
 		gl.glDisable(GL10.GL_TEXTURE_2D);
 		gl.glDisable(GL10.GL_BLEND);
 		gl.glEnable(GL10.GL_LIGHTING);

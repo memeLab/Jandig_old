@@ -122,7 +122,7 @@ public class AnimatedObject extends ARObject {
 				tbmp = mGD.getFrame(f);
 				frameDelays[f] = mGD.getDelay(f);
 				int[] bgnd = new int[potW*potH];
-				
+
 				// move frame image to a larger image
 				tbmp.getPixels(bgnd,0,potW, 0,0, tbmp.getWidth(), tbmp.getHeight());
 
