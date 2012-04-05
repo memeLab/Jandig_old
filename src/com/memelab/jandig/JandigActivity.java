@@ -2,6 +2,7 @@ package com.memelab.jandig;
 
 import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
+import edu.dhbw.andar.ARObject;
 import edu.dhbw.andar.exceptions.AndARException;
 import edu.dhbw.andar.interfaces.OpenGLRenderer;
 import edu.dhbw.andar.sample.CustomRenderer;
@@ -84,6 +85,10 @@ public class JandigActivity extends AndARActivity {
 		if(TESTANDO){
 			createFromCustomObjects(savedInstanceState);
 		}
+		else if(TESTANDO){
+			// this should never be called
+			createFromAssets(savedInstanceState);
+		}
 		else{
 			//createFromAssets(savedInstanceState);
 			createFromDirsInAssets(savedInstanceState);
@@ -100,21 +105,33 @@ public class JandigActivity extends AndARActivity {
 
 		/* tgh: associate different color cubes to different .patt files */
 		try {
-			//register a object for each marker type
-			//CustomObject myObject;
-			//myObject = new CustomObject("test0", "ap0_16x16.patt", 80.0, new double[]{0,0}, new float[]{255,0,0});
-			//artoolkit.registerARObject(myObject);
-			//myObject = new CustomObject("test1", "ap1_16x16.patt", 80.0, new double[]{0,0}, new float[]{0,255,0});
-			//artoolkit.registerARObject(myObject);
-			//myObject = new CustomObject("test2", "ap2_16x16.patt", 80.0, new double[]{0,0}, new float[]{0,0,255});
-			//artoolkit.registerARObject(myObject);
+			/*  CustomObject test
+			CustomObject myObject;
+			myObject = new CustomObject("test0", "ap0_16x16.patt", 80.0, new double[]{0,0}, new float[]{255,0,0});
+			artoolkit.registerARObject(myObject);
+			myObject = new CustomObject("test1", "ap1_16x16.patt", 80.0, new double[]{0,0}, new float[]{0,255,0});
+			artoolkit.registerARObject(myObject);
+			myObject = new CustomObject("test2", "ap2_16x16.patt", 80.0, new double[]{0,0}, new float[]{0,0,255});
+			artoolkit.registerARObject(myObject);
+			 */
 
+			/*  ImageObject test
 			ImageObject myImgObject;
 
 			InputStream ins = getAssets().open("Images/borboleta.jpg");
 			myImgObject = new ImageObject("test0", "borboleta.patt", ins, 50.0, new double[]{0,0});
 			artoolkit.registerARObject(myImgObject);
 
+			ins = getAssets().open("Images/ap1_16x16.png");
+			myImgObject = new ImageObject("test0", "ap1_16x16.patt", ins, 50.0, new double[]{0,0});
+			artoolkit.registerARObject(myImgObject);
+
+			ins = getAssets().open("Images/ap2_16x16.png");
+			myImgObject = new ImageObject("test0", "ap2_16x16.patt", ins, 50.0, new double[]{0,0});
+			artoolkit.registerARObject(myImgObject);
+			 */
+
+			/* Model3D test
 			BaseFileUtil fileUtil = new AssetsFileUtil(getAssets());
 			fileUtil.setBaseFolder("Images/");
 			ObjParser parser = new ObjParser(fileUtil);
@@ -122,16 +139,29 @@ public class JandigActivity extends AndARActivity {
 			Model model = parser.parse("superman.obj", fileReader);
 			Model3D model3d = new Model3D("super", model,"superman.patt", 80.0);
 			artoolkit.registerARObject(model3d);
+			 */
 
-			//ins = getAssets().open("Images/ap1_16x16.png");
-			//myImgObject = new ImageObject("test0", "ap1_16x16.patt", ins, 50.0, new double[]{0,0});
-			//artoolkit.registerARObject(myImgObject);
+			/* AnimatedObject test */
+			String allFilesInAssets = "giftest";
+			String patFileName = "cassete.patt";
+			String imgFileName = "Coil.gif";
+			InputStream ins = getAssets().open(allFilesInAssets+File.separator+imgFileName);
+			AnimatedObject myObject = new AnimatedObject(allFilesInAssets, new String(allFilesInAssets+File.separator+patFileName), ins, 48.0);
 
-			//ins = getAssets().open("Images/ap2_16x16.png");
-			//myImgObject = new ImageObject("test0", "ap2_16x16.patt", ins, 50.0, new double[]{0,0});
-			//artoolkit.registerARObject(myImgObject);
+			// hack to overcome the copying procedure in ARToolkit.registerARObject()
+			InputStream in = getAssets().open(allFilesInAssets+File.separator+patFileName);
+			File bf = new File(getFilesDir().getAbsolutePath()+File.separator+allFilesInAssets);
+			if(!bf.exists()){
+				bf.mkdir();
+			}
 
-		} 
+			OutputStream out = new FileOutputStream(new File(bf,patFileName));
+			this.bCopy(in, out);
+
+			artoolkit.registerARObject(myObject);
+			System.out.println("----Created AnimatedObject for: "+ allFilesInAssets+" with "+imgFileName+" and "+patFileName);
+
+		}
 		catch (AndARException ex){
 			// handle the exception, that means: show the user what happened
 			System.out.println("");
@@ -144,7 +174,7 @@ public class JandigActivity extends AndARActivity {
 
 	// function to register objects in the assets directory onto the ARToolkit
 	private void createFromAssets(Bundle savedInstanceState) {
-	 
+
 		OpenGLRenderer renderer = new CustomRenderer(); // optional, may be set to null
 		super.setNonARRenderer(renderer); // or might be omited
 
@@ -229,13 +259,13 @@ public class JandigActivity extends AndARActivity {
 	private void createFromDirsInAssets(Bundle savedInstanceState){
 		// OpenGLRenderer renderer = new JandigRenderer(); // optional, may be set to null (tgh: bullshit!)
 		// super.setNonARRenderer(renderer); // or might be omited (tgh: bullshit!)
-		
+
 		// Bullshit. This HAS to be set in order to see the stuff on the screen.
 		//   Also, although this is supposed to be the non-AR renderer, it sets up lights
 		//   for 3D objects...  
 		OpenGLRenderer renderer = new JandigRenderer(); 
 		super.setNonARRenderer(renderer);
-		
+
 
 		/* tgh: Model3D... wooohhooooooo!! */
 		Model model;
@@ -284,7 +314,7 @@ public class JandigActivity extends AndARActivity {
 					model = parser.parse(objFileName, fileReader);
 
 					System.out.println("---Parsed 3D!");
-					
+
 					// scale the model based on the x/y dimensions from the .obj file
 					float scalef = 80.0f;
 					scalef = Math.max(model.xdim,model.ydim)*4.0f;
@@ -308,8 +338,17 @@ public class JandigActivity extends AndARActivity {
 				// if there is an image and a pat file, and no obj
 				//     kind of redundant, but sometimes obj models have a png...
 				else if((imgFileName!=null) && (patFileName!=null) && (objFileName == null)) {
-					InputStream ins = getAssets().open(allFilesInAssets[i]+File.separator+imgFileName);					
-					ImageObject imageobject = new ImageObject(allFilesInAssets[i], new String(allFilesInAssets[i]+File.separator+patFileName), ins, 48.0);
+					InputStream ins = getAssets().open(allFilesInAssets[i]+File.separator+imgFileName);
+					ARObject imageobject;
+					String objType;
+					if(imgFileName.endsWith(".gif")){
+						imageobject = new AnimatedObject(allFilesInAssets[i], new String(allFilesInAssets[i]+File.separator+patFileName), ins, 48.0);
+						objType = "AnimatedObject";
+					}
+					else{
+						imageobject = new ImageObject(allFilesInAssets[i], new String(allFilesInAssets[i]+File.separator+patFileName), ins, 48.0);
+						objType = "ImageObject";
+					}
 
 					// hack to overcome the copying procedure in ARToolkit.registerARObject()
 					InputStream in = getAssets().open(allFilesInAssets[i]+File.separator+patFileName);					
@@ -322,7 +361,7 @@ public class JandigActivity extends AndARActivity {
 
 					artoolkit.registerARObject(imageobject);
 
-					System.out.println("----Created ImageObject for: "+ allFilesInAssets[i]+" with "+imgFileName+" and "+patFileName);
+					System.out.println("----Created "+objType+" for: "+ allFilesInAssets[i]+" with "+imgFileName+" and "+patFileName);
 				}
 			} // for all dirs in assets
 		} // try
@@ -349,7 +388,7 @@ public class JandigActivity extends AndARActivity {
 	/**
 	 * Inform the user about exceptions that occurred in background threads.
 	 * This exception is rather severe and can not be recovered from.
-	 * TODO Inform the user and shut down the application.
+	 * It should : Inform the user and shut down the application.
 	 */
 	@Override
 	public void uncaughtException(Thread thread, Throwable ex) {
