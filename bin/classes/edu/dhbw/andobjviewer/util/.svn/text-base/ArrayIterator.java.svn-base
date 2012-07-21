@@ -3,7 +3,7 @@ package edu.dhbw.andobjviewer.util;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayIterator implements Iterator<Object> { // pxl: added <Object> to suppress a warning
+public class ArrayIterator implements Iterator {
 	private Object array[];
 	private int pos = 0;
 

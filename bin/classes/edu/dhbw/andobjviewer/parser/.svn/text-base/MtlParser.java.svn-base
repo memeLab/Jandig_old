@@ -21,14 +21,16 @@ package edu.dhbw.andobjviewer.parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-//import java.util.regex.Pattern;
+import java.util.regex.Pattern;
 
 import edu.dhbw.andobjviewer.models.Material;
 import edu.dhbw.andobjviewer.models.Model;
 import edu.dhbw.andobjviewer.util.BaseFileUtil;
 
-//import android.R;
-//import android.graphics.BitmapFactory;
+
+import android.R;
+import android.graphics.BitmapFactory;
+
 
 public class MtlParser { 
 
@@ -43,13 +45,13 @@ public class MtlParser {
 	 * @param line
 	 */
 	public void parse(Model model, BufferedReader is) {
-		// pxl: deleted lineNum to suppress a warning
 		Material curMat = null;
+		int lineNum = 1;
 		String line;
 		try {
 			for (line = is.readLine(); 
 			line != null; 
-			line = is.readLine())
+			line = is.readLine(), lineNum++)
 			{
 				line = Util.getCanonicalLine(line).trim();
 				if (line.length() > 0) {
@@ -89,13 +91,13 @@ public class MtlParser {
 					} else if(line.startsWith("map_Kd ")) {
 						//limited texture support
 						String imageFileName = line.substring(7);
-						//fï¿½r resources:Bitmap mBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.pic1);
+						//für resources:Bitmap mBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.pic1);
 						curMat.setFileUtil(fileUtil);
 						curMat.setBitmapFileName(imageFileName);
 					} else if(line.startsWith("mapKd ")) {
 						//limited texture support
 						String imageFileName = line.substring(6);
-						//fï¿½r resources:Bitmap mBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.pic1);
+						//für resources:Bitmap mBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.pic1);
 						curMat.setFileUtil(fileUtil);
 						curMat.setBitmapFileName(imageFileName);
 					}
