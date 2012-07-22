@@ -40,6 +40,7 @@ import java.util.Arrays;
 //import java.net.URI;
 
 import android.content.ContentValues;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -76,11 +77,22 @@ public class JandigActivity extends AndARActivity {
 
 	//CustomObject someObject;
 	ARToolkit artoolkit;
+	
+	// verson number
+	private static String verName = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSurfaceView().setOnTouchListener(new TouchEventHandler());
+
+		// get version name
+		try{
+			verName = getPackageManager().getPackageInfo(getPackageName(),0).versionName;
+		}
+		catch(PackageManager.NameNotFoundException e){
+			verName = "0.6.3";
+		}
 
 		if(TESTANDO){
 			createFromCustomObjects(savedInstanceState);
@@ -93,7 +105,7 @@ public class JandigActivity extends AndARActivity {
 			//createFromAssets(savedInstanceState);
 			createFromDirsInAssets(savedInstanceState);
 		}
-		Toast.makeText(JandigActivity.this, "Jandig 0.5.2 - toque na tela para tirar uma foto!", Toast.LENGTH_LONG).show();
+		Toast.makeText(JandigActivity.this, "Jandig "+verName+" - toque na tela para tirar uma foto!", Toast.LENGTH_LONG).show();
 	}
 
 	// function to register CustomObject objects onto the ARToolkit
@@ -346,7 +358,9 @@ public class JandigActivity extends AndARActivity {
 						objType = "AnimatedObject";
 					}
 					else{
-						imageobject = new ImageObject(allFilesInAssets[i], new String(allFilesInAssets[i]+File.separator+patFileName), ins, 48.0);
+						// make fisl image bigger
+						double myMarkerSize = (imgFileName.toLowerCase().contains("fisl"))?24.0:48.0;
+						imageobject = new ImageObject(allFilesInAssets[i], new String(allFilesInAssets[i]+File.separator+patFileName), ins, myMarkerSize);
 						objType = "ImageObject";
 					}
 
