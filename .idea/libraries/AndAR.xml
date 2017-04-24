@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="AndAR">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/AndAR.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

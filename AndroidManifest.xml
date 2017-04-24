@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.memelab.jandig"
-      android:versionCode="12"
-      android:versionName="0.6.3">
-    <uses-sdk android:targetSdkVersion="4" android:minSdkVersion="3"/>
+      android:versionCode="23"
+      android:versionName="0.8.6">
+    <uses-sdk android:targetSdkVersion="16" android:minSdkVersion="4"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-feature android:name="android.hardware.camera" />
