@@ -142,6 +142,10 @@ public class JandigActivity extends AndARActivity {
 			myImgObject = new ImageObject("test0", "ap2_16x16.patt", ins, 50.0, new double[]{0,0});
 			artoolkit.registerARObject(myImgObject);
 			 */
+			ImageObject myImgObject;
+			InputStream ins = getAssets().open("test/robo-youtube/robo_youtube.png");
+			myImgObject = new ImageObject("test0", "test/robo-youtube/robo_youtube.patt", ins, 50.0, new double[]{-100,-100});
+			artoolkit.registerARObject(myImgObject);
 
 			/* Model3D test
 			BaseFileUtil fileUtil = new AssetsFileUtil(getAssets());
@@ -157,8 +161,9 @@ public class JandigActivity extends AndARActivity {
 			String allFilesInAssets = "giftest";
 			String patFileName = "cassete.patt";
 			String imgFileName = "Coil.gif";
-			InputStream ins = getAssets().open(allFilesInAssets+File.separator+imgFileName);
+			/*InputStream*/ ins = getAssets().open(allFilesInAssets+File.separator+imgFileName);
 			AnimatedObject myObject = new AnimatedObject(allFilesInAssets, new String(allFilesInAssets+File.separator+patFileName), ins, 48.0);
+
 
 			// hack to overcome the copying procedure in ARToolkit.registerARObject()
 			InputStream in = getAssets().open(allFilesInAssets+File.separator+patFileName);
